@@ -1,19 +1,21 @@
 import axios from 'axios';
-import {playerConst} from '../constants/index';
+import {initialState} from '../constants/index';
 
 /** TYPES START */
 export const types = {
     SET_CARD_DATA: 'SET_CARD_DATA',
     GET_CARD_DATA: 'GET_CARD_DATA',
     SET_PLAYER_SCORE: 'SET_PLAYER_SCORE',
-    SET_PLAYER_STATUS: 'SET_PLAYER_STATUS'
+    SET_PLAYER_STATUS: 'SET_PLAYER_STATUS',
+    RESET_PLAYERS: 'RESET_PLAYERS',
 };
 /** TYPES END */
 
 /** ACTIONS START */
 export const onSetCard = (player) => ({type: types.SET_CARD_DATA, player});
 export const onSetPlayerStatus = (player) => ({type: types.SET_PLAYER_STATUS, player});
-export const onSetPlayerScore = (player) => ({type: types.SET_PLAYER_SCORE, player});
+export const onSetPlayerScore = (playerId) => ({type: types.SET_PLAYER_SCORE, playerId});
+export const onResetPlayers = () => ({type: types.RESET_PLAYERS});
 export const onGetCardAjax = (playerId, resources, id) => {
     return (dispatch) => {
 
@@ -37,60 +39,53 @@ export const onGetCardAjax = (playerId, resources, id) => {
                     dispatch(onSetCard(player));
 
                     return { 
-                            playerId: playerId,
+                            playerId,
                             status: 1   
                         };
                 })
                 .catch( error => {
-
-                    return { 
-                        playerId: playerId,
-                        status: 0   
-                    };
-                    
-                    // if(error.response.status === 404) {
-                    //     return { [playerId]: 0 };
-                    // }      
+                    alert(error.message);
                 });
     };
 };
 
-/** HELPERS START */
-const player1 = playerConst.PLAYER_ONE.playerId; 
-const player2 = playerConst.PLAYER_TWO.playerId; 
-const initialState = {};
-initialState[player1]= {
-    card: {},
-    score: 0,
-    status: 0
-};
-initialState[player2] = {
-    card: {},
-    score: 0,
-    status: 0
-};
-/** HELPERS END */
-
 /** REDUCER START */
-export const player = (state = initialState, action = {}) => {
-
-    let player = null;
+export const player = (state = initialState.player, action = {}) => {
 
     switch (action.type) {
         case types.SET_CARD_DATA:
       
-            player = Object.assign({}, { ...state[action.player.playerId] }, { card: action.player.card} );
-            return { ...state, [action.player.playerId]: {...player} };
+            return { 
+                ...state, 
+                [action.player.playerId]: {
+                    ...state[action.player.playerId],
+                    card: action.player.card
+                }
+            };
 
         case types.SET_PLAYER_STATUS:
 
-            player = Object.assign({}, { ...state[action.player.playerId] }, { status: action.player.status} );
-            return { ...state, [action.player.playerId]: {...player} };
+            return { 
+                ...state, 
+                [action.player.playerId]: {
+                    ...state[action.player.playerId], 
+                    status: action.player.status
+                }
+            };
 
-        // case types.SET_PLAYER_SCORE:
-            // console.log('SET_PLAYER_SCORE',action.player.playerId);
-            // player = Object.assign({}, { ...state[action.player.playerId] }, { score: action.player.score} );
-            // return { ...state, [action.playerStatus.playerId]: {...player} };
+        case types.SET_PLAYER_SCORE:
+
+            return { 
+                ...state, 
+                [action.playerId]: { 
+                    ...state[action.playerId], 
+                    score: state[action.playerId].score + 1 
+                } 
+            };
+
+        case types.RESET_PLAYERS: 
+
+            return initialState.player;
 
         default:
             return state || {};

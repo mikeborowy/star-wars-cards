@@ -18,20 +18,9 @@ export const mdlStyles = theme => ({
                 ${theme.spacing.unit * 2}px 
                 ${theme.spacing.unit}px`
     },
-    paperAtNight: {
-        backgroundColor: '#343f63',
-        color: 'white',
-        marginTop: theme.spacing.unit * 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: `${theme.spacing.unit * 2}px
-                ${theme.spacing.unit}px 
-                ${theme.spacing.unit * 2}px 
-                ${theme.spacing.unit}px`
-    },
     card: {
-        minWidth: 275,
+        width: 250,
+        height: 340,
         media: {
             // ⚠️ object-fit is not supported by IE 11.
             objectFit: 'cover',

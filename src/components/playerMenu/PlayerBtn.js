@@ -36,9 +36,9 @@ export const PlayerBtn = (props) => {
             color = "primary" 
             badgeContent={playerScore}>
                 <Button 
-                    variant = "contained" 
-                    onClick = { () => playerClick(playerId) }>
-                    {playerName}
+                    variant="contained" 
+                    onClick={() => playerClick(playerId)}>
+                    {`START ${playerName}`}
                 </Button>
         </Badge>
     );   
