@@ -91,7 +91,6 @@ class PlayerMenu extends React.Component {
                         ? this.scorePeople.call(this, this.props.player,this.props.onSetPlayerScore)
                         : this.scoreStarships.call(this, this.props.player,this.props.onSetPlayerScore);          
                 });
-
     }
     /** HANDLESRS END */
 

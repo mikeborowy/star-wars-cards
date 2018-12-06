@@ -44,14 +44,20 @@ const defaultProps = {
     status: 0
 };
 
+const style = {
+    padding: '45px'
+};
+
 export const PlayerCard = (props) => {  
     const { classes, resources} = props;
     return(
         <Card className={classes.card}> 
             {props.status === 0
             ?   <Grid container className={classes.root} spacing={16} justify="center">
-                    <Grid item>
-                        <Preloader/>
+                    <Grid item >
+                        <div style={style}>
+                            <Preloader/>
+                        </div>
                     </Grid>
                 </Grid>           
             : <React.Fragment>
@@ -66,7 +72,8 @@ export const PlayerCard = (props) => {
                 <CardContent>
             <Typography className={classes.title} color="textSecondary">
                 {resourcesTypesConst.PEOPLE === resources 
-                    ? `Card of ${props.playerName}` : null 
+                    ? `Card of ${props.playerName}` 
+                    : null 
                 }
             </Typography>
             <Typography variant="headline" component="h2">
@@ -74,18 +81,23 @@ export const PlayerCard = (props) => {
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
                 {resourcesTypesConst.PEOPLE === resources
-                     ? `Birth Year: ${props.card.birth_year}` : `Hyperdrive Rating: ${props.card.hyperdrive_rating}`}
+                     ? `Birth Year: ${props.card.birth_year}` 
+                     : `Hyperdrive Rating: ${props.card.hyperdrive_rating}`
+                     }
                 <br/>
                 {resourcesTypesConst.PEOPLE === resources
-                     ? `Mass: ${props.card.mass}` : `Crew: ${props.card.crew}` 
-                     } 
+                     ? `Mass: ${props.card.mass}` 
+                     : `Crew: ${props.card.crew}` 
+                    } 
                 <br/>   
                 {resourcesTypesConst.PEOPLE === resources
-                     ? `Height: ${props.card.height}` : `Length: ${props.card.length}`
+                     ? `Height: ${props.card.height}` 
+                     : `Length: ${props.card.length}`
                      } 
                 <br/>   
                 {resourcesTypesConst.PEOPLE === resources 
-                    ? `Gender: ${props.card.gender}` : `Model: ${props.card.model}`
+                    ? `Gender: ${props.card.gender}` 
+                    : `Model: ${props.card.model}`
                     }
             </Typography>
         </CardContent>     

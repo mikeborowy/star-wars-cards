@@ -32,7 +32,7 @@ export const initialState = {
                 length: ''
             },
             score: 0,
-            status: 0
+            status: -1
         },
         [player2]: {
             card: {
@@ -47,7 +47,7 @@ export const initialState = {
                 length: ''
             },
             score: 0,
-            status: 0
+            status: -1
         }
     }
 };
