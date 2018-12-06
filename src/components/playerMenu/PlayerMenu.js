@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 //Components
 import {PlayerBtn} from './PlayerBtn';
 import { Button } from '@material-ui/core';
+import _ from 'lodash';
 
 /** HELPSERS START */
 const playerOne = {...playerConst.PLAYER_ONE};
@@ -34,7 +35,7 @@ class PlayerMenu extends React.Component {
     constructor(props){ 
         super(props);
         this.switchResourcesHandler = this.switchResourcesHandler.bind(this);
-        this.playerBtnClick = this.playerBtnClick.bind(this);
+        this.playerBtnClick = _.debounce(this.playerBtnClick.bind(this), 1000);
         this.resetGameHandler = this.resetGameHandler.bind(this);
     } 
 
@@ -81,15 +82,16 @@ class PlayerMenu extends React.Component {
     }
 
     playerBtnClick(playerId) {
-        this.props.onSetPlayerStatus({playerId, status: 0});
-        this.props
-            .onGetCardAjax(playerId, this.props.resources, this.generateRandom(0, 9))
-            .then( playerStatus => {
-                this.props.onSetPlayerStatus(playerStatus);
-                this.props.resources === resourcesTypesConst.PEOPLE 
-                    ? this.scorePeople.call(this, this.props.player,this.props.onSetPlayerScore)
-                    : this.scoreStarships.call(this, this.props.player,this.props.onSetPlayerScore);          
-            });
+            this.props.onSetPlayerStatus({playerId, status: 0});
+            this.props
+                .onGetCardAjax(playerId, this.props.resources, this.generateRandom(0, 9))
+                .then( playerStatus => {
+                    this.props.onSetPlayerStatus(playerStatus);
+                    this.props.resources === resourcesTypesConst.PEOPLE 
+                        ? this.scorePeople.call(this, this.props.player,this.props.onSetPlayerScore)
+                        : this.scoreStarships.call(this, this.props.player,this.props.onSetPlayerScore);          
+                });
+
     }
     /** HANDLESRS END */
 
