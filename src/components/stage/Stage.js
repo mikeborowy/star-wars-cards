@@ -34,7 +34,7 @@ const defaultProps = {
   loaders: 0
 };
 
-class MainScreen extends React.PureComponent{
+class _Stage extends React.PureComponent{
 
   constructor(props) {
     super(props);
@@ -89,10 +89,10 @@ class MainScreen extends React.PureComponent{
   }
 } 
 
-MainScreen.propTypes = propTypes;
-MainScreen.defaultProps = defaultProps;
+_Stage.propTypes = propTypes;
+_Stage.defaultProps = defaultProps;
 
-const MainScreenWithMDL = withStyles(mdlStyles)(MainScreen);
+const Stage = withStyles(mdlStyles)(_Stage);
 
 function mapStateToProps(state) {
   return {
@@ -103,4 +103,4 @@ function mapStateToProps(state) {
 
 export default ReactRedux.connect(
   mapStateToProps
-)(MainScreenWithMDL);
+)(Stage);
